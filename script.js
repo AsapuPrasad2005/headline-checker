@@ -11,7 +11,7 @@ async function checkHeadline() {
 
     try {
         // Replace with your own API key from https://newsapi.org
-        const API_KEY = "YOUR_API_KEY_HERE";
+        const API_KEY = "3807b27da8cf49e586ce3d3cc1f58fca";
 
         const res = await fetch(
             `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&pageSize=5&sortBy=publishedAt&language=en&apiKey=${API_KEY}`
