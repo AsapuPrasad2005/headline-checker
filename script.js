@@ -10,15 +10,17 @@ async function checkHeadline() {
     resultsDiv.innerHTML = "<p>Loading news...</p>";
 
     try {
-        // Call NewsAPI
+        // Replace with your own API key from https://newsapi.org
+        const API_KEY = "YOUR_API_KEY_HERE";
+
         const res = await fetch(
-            `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&pageSize=5&sortBy=publishedAt&language=en&apiKey=3807b27da8cf49e586ce3d3cc1f58fca
+            `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&pageSize=5&sortBy=publishedAt&language=en&apiKey=${API_KEY}`
         );
 
         const data = await res.json();
 
         if (data.status !== "ok") {
-            resultsDiv.innerHTML = ` < p style = "color:red;" > Error: $ { data.message } < /p>`;
+            resultsDiv.innerHTML = `<p style="color:red;">Error: ${data.message}</p>`;
             return;
         }
 
@@ -33,11 +35,11 @@ async function checkHeadline() {
             const div = document.createElement("div");
             div.classList.add("article");
             div.innerHTML = `
-        <a href="${article.url}" target="_blank"><b>${article.title}</b></a><br>
-        <small>${article.source.name} — ${new Date(article.publishedAt).toLocaleString()}</small>
-        <p>${article.description || ""}</p>
-        <hr>
-      `;
+                <a href="${article.url}" target="_blank"><b>${article.title}</b></a><br>
+                <small>${article.source.name} — ${new Date(article.publishedAt).toLocaleString()}</small>
+                <p>${article.description || ""}</p>
+                <hr>
+            `;
             resultsDiv.appendChild(div);
         });
     } catch (err) {
